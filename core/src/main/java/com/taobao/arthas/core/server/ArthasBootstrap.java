@@ -88,6 +88,15 @@ public class ArthasBootstrap {
             List<CommandResolver> resolvers = new ArrayList<CommandResolver>();
             resolvers.add(builtinCommands);
             // TODO: discover user provided command resolver
+            configure.setIp("127.0.0.1");
+            if(configure.getTelnetPort() == 0){
+                logger.info("telnet port is 0");
+                configure.setTelnetPort(3658);
+            }
+            if(configure.getHttpPort()==0){
+                logger.info("http port is 0");
+                configure.setHttpPort(8563);
+            }
             if (configure.getTelnetPort() > 0) {
                 shellServer.registerTermServer(new TelnetTermServer(configure.getIp(), configure.getTelnetPort(),
                                 options.getConnectionTimeout()));
